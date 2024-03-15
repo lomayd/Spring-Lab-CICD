@@ -42,7 +42,7 @@ sudo reboot
 ```
 
 ```
-[반대 방법 주석 처리, {도커 허브 아이디}/{이미지 이름} 부분(ex) lomayd/spring-lab-cicd) 수정 in .github/workflows/gradle.yml]
+[반대 방법 주석 처리 in .github/workflows/gradle.yml]
 ```
 
 ## Execution 
@@ -69,8 +69,10 @@ sudo reboot
 - PORT (SSH PORT(일반적으로 22, 변경 시 작성))
 - PRIVATE_KEY (위의 PRIVATE KEY)
 - USERNAME (ubuntu)
-- DOCKER_ID (DockerHub ID) (Docker 이용한 방법 적용시 작성) 
+- DOCKER_ID (DockerHub ID) (Docker 이용한 방법 적용시 작성)
 - DOCKER_PWD (DockerHub Password) (Docker 이용한 방법 적용시 작성)
+- DOCKER_NAME (DockerHub Name) (Docker 이용한 방법 적용시 작성)
+- Docker_REPO (DockerHub Repository) (Docker 이용한 방법 적용시 작성)
 
 ### 유의사항
 일반적으로는 Executable Jar, Plain Jar 두 개 생성이므로 Executable Jar만 생성되게끔 하기 위해 build.gradle에 추가하기:

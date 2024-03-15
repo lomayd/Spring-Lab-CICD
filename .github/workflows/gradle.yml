@@ -69,8 +69,8 @@ jobs:
     - name: Docker build
       run: |
         docker login -u ${{ secrets.DOCKER_ID }} -p ${{ secrets.DOCKER_PWD }}
-        docker build -t lomayd/spring-lab-cicd .
-        docker push lomayd/spring-lab-cicd
+        docker build -t ${{ secrets.DOCKER_NAME }}/${{ secrets.DOCKER_REPO }} .
+        docker push ${{ secrets.DOCKER_NAME }}/${{ secrets.DOCKER_REPO }}
 
     - name: Deploy
       uses: appleboy/ssh-action@master
@@ -79,6 +79,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PRIVATE_KEY }}
         script: |
-          docker pull lomayd/spring-lab-cicd
+          docker pull ${{ secrets.DOCKER_NAME }}/${{ secrets.DOCKER_REPO }}
           docker stop server
-          docker run -d --rm --name server -p 8080:8080 lomayd/spring-lab-cicd
+          docker run -d --rm --name server -p 8080:8080 ${{ secrets.DOCKER_NAME }}/${{ secrets.DOCKER_REPO }}
