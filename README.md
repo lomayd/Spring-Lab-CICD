@@ -1,6 +1,8 @@
 # Spring-Lab-CICD
 
-## AWS EC2 설정(실행 전)
+## AWS EC2 설정(실행 전) (두 방법 중 하나 적용)
+
+### 1. 인스턴스에 JDK 직접 설치, 서버 직접 실행
 ```
 sudo apt update
 
@@ -14,6 +16,33 @@ PubkeyAuthentication yes
 PubkeyAcceptedKeyTypes=+ssh-rsa
 
 sudo reboot
+```
+
+```
+[반대 방법 주석 처리 in .github/workflows/gradle.yml] 
+```
+
+
+### 2. 인스턴스에 Docker 이용해 JDK 설치, 서버 실행 (DockerHub 이용)
+```
+sudo apt update
+
+sudo apt install docker.io
+
+sudo usermod -aG docker ${USER}
+```
+
+```
+sudo vi /etc/ssh/sshd_config
+
+PubkeyAuthentication yes
+PubkeyAcceptedKeyTypes=+ssh-rsa
+
+sudo reboot
+```
+
+```
+[반대 방법 주석 처리, {도커 허브 아이디}/{이미지 이름} 부분(ex) lomayd/spring-lab-cicd) 수정 in .github/workflows/gradle.yml]
 ```
 
 ## Execution 
@@ -37,9 +66,11 @@ sudo reboot
 
 5. Settings > Secrets and variables > Actions > Repository secrets에 등록하기:
 - HOST (AWS EC2 IP Address)
-- PORT (SSH PORT(일반적으로 22))
+- PORT (SSH PORT(일반적으로 22, 변경 시 작성))
 - PRIVATE_KEY (위의 PRIVATE KEY)
 - USERNAME (ubuntu)
+- DOCKER_ID (DockerHub ID) (Docker 이용한 방법 적용시 작성) 
+- DOCKER_PWD (DockerHub Password) (Docker 이용한 방법 적용시 작성)
 
 ### 유의사항
 일반적으로는 Executable Jar, Plain Jar 두 개 생성이므로 Executable Jar만 생성되게끔 하기 위해 build.gradle에 추가하기:
