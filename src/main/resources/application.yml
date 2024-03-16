@@ -1,0 +1,21 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: blue
+
+serverName: blue
+
+server:
+  port: 8081
+---
+spring:
+  config:
+    activate:
+      on-profile: green
+
+serverName: green
+
+server:
+  port: 8082
+---
