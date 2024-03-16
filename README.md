@@ -23,13 +23,15 @@ sudo reboot
 ```
 
 
-### 2. 인스턴스에 Docker 이용해 JDK 설치, 서버 실행 (DockerHub 이용)
+### 2. 인스턴스에 Docker 이용해 JDK 설치, 서버 실행 (DockerHub, Nginx 이용한 무중단 배포)
 ```
 sudo apt update
 
 sudo apt install docker.io
 
 sudo usermod -aG docker ${USER}
+
+sudo apt install nginx
 ```
 
 ```
@@ -43,6 +45,8 @@ sudo reboot
 
 ```
 [반대 방법 주석 처리 in .github/workflows/gradle.yml]
+
+[services.blue.image, services.green.image 변경 in docker.compose.yml]
 ```
 
 ## Execution 
